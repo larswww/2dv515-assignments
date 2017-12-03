@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2dv515_a2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+</head>
+
+<body class="ab">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+        <div class="container"><a class="navbar-brand" href="#">lw222ii 2dv515 a2</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">E </a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="cd.html">C-D </a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">A-B </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-6 align-self-center">
+                    <form id="apiForm">
+                        <div class="form-group">
+                            <label class="float-left" for="algo">Algorithm </label>
+                            <select class="form-control" name="algo" value="kmeans" required="" id="algo">
+                                <option value="hierarchical" selected="">hierarchical</option>
+                                <option value="kmeans">kmeans</option>
+                            </select><small>Pearson will be displayed as two clusters hierarchical as tree</small>
+                            <input class="form-control" type="text" name="wiki_pages" required="" placeholder="Programming,Games"><small>Choose which wikipedia pages to unify into one list then run algorithm on. Separate page names with , . https://en.wikipedia.org/wiki/Programming = Programming</small>
+                            <input class="form-control" type="number" name="crawl_depth"
+                            placeholder="Depth to crawl" min="1" max="1000">
+                            <button class="btn btn-primary" type="submit" id="API">Call API</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row" id="centroids"></div>
+        </div>
+    </div>
+    <div id="jstree"></div>
+    <button class="btn btn-primary" type="button" id="jsbutton">Open all</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+</body>
+
+</html>

@@ -12,23 +12,22 @@ import java.util.ArrayList;
 @CrossOrigin
 @RestController
 public class Controller {
-    private String htmlFilesPath = System.getProperty("user.dir") + "/data/html";
     private HtmlView html = new HtmlView();
 
     @RequestMapping("/blogdata/centroids")
     public String blogdataCentroids() {
-            return html.CentroidList(new KMeans(new ClusteringDB("/Users/mbp/Documents/Code/2dv515/a1api/localDb/blogdata.txt")).getCentroids());
-
+            return html.CentroidList(new KMeans(new ClusteringDB("/Users/mbp/Documents/Code/2dv515/a1api/seedData/blogdata.txt"), 4).getCentroids());
     }
 
     @RequestMapping("/blogdata/hierarchical")
     public String blogDataHtml() {
-        return html.tree(new Hierarchical(new ClusteringDB("/Users/mbp/Documents/Code/2dv515/a1api/localDb/blogdata.txt")).getClusters(), "blogdata");
+        return html.tree(new Hierarchical(new ClusteringDB("/Users/mbp/Documents/Code/2dv515/a1api/seedData/blogdata.txt")).getClusters(), "blogdata");
     }
 
     @RequestMapping("/wikipedia")
-    public String wikipediaHtml(@RequestParam(value="algo", defaultValue ="kmeans") String algo,
-                                @RequestParam(value="pages", defaultValue = "Programming,Games") String pages) {
+    public String wikipediaHtml(@RequestParam(value="algo") String algo,
+                                @RequestParam(value="wiki_pages") String pages,
+                                @RequestParam(value="crawl_depth") Integer crawl_depth) {
         String[] toCrawl = FileSysDB.wordBagsFor(pages);
         if (toCrawl[0] != null) new WikipediaCrawler(toCrawl);
         String wikiDataPath = new ParseWikipediaData(pages).dataFileLocation();
@@ -37,12 +36,12 @@ public class Controller {
         switch (algo) {
 
             case "kmeans":
-
-                return html.CentroidList(new KMeans(wiki).getCentroids());
+                int noCentroids = pages.split(",").length;
+                return html.CentroidList(new KMeans(wiki, noCentroids).getCentroids());
 
             case "hierarchical":
 
-                String filePath = FileSysDB.matchingDataFileFor(pages, htmlFilesPath);
+                String filePath = FileSysDB.matchingDataFileFor(pages, "/html");
                 if (filePath != null && !filePath.equals("not found")) return FileSysDB.fileTostring(filePath); // no need to run time consuming alo again..
                 return html.tree(new Hierarchical(wiki).getClusters(), pages);
 

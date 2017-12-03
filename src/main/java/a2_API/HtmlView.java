@@ -16,9 +16,18 @@ class HtmlView {
 
     String CentroidList(ArrayList<Centroid> centroids) {
         StringBuilder ct = new StringBuilder();
+        int colSize;
+        if (centroids.size() > 12) {
+            colSize = 2;
+        } else {
+            colSize = 12 / centroids.size();
+        }
 
         for (int i = 0; i < centroids.size(); i++) {
+            ct.append("<div class='col-md-" + colSize + "'>");
             ct.append("<div><h3>").append("Centroid " + centroids.get(i).center().article).append("</h3><ul>");
+            ct.append("</div>");
+
 
             Iterator it = centroids.get(i).cluster().iterator();
             while (it.hasNext()) {

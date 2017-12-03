@@ -7,19 +7,19 @@ public class KMeans {
     ArrayList<Article> articles;
     CalculatePearson metric = new CalculatePearson();
 
-    public KMeans(ClusteringDB db) {
+    public KMeans(ClusteringDB db, int noCentroids) {
         this.articles = db.articles;
-        kMeans();
+        kMeans(noCentroids);
     }
 
     public ArrayList<Centroid> getCentroids() {
         return centroids;
     }
 
-    private void kMeans() {
+    private void kMeans(int noCentroids) {
         centroids = new ArrayList<>();
         Randomizer rnd = new Randomizer(articles);
-        int k = 5;
+        int k = noCentroids;
 
         for (int i = 0; i < k; i++) {
             centroids.add(rnd.createRandom());
