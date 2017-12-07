@@ -29,7 +29,7 @@ public class Controller {
                                 @RequestParam(value="wiki_pages") String pages,
                                 @RequestParam(value="crawl_depth") Integer crawl_depth) {
         String[] toCrawl = FileSysDB.wordBagsFor(pages);
-        if (toCrawl[0] != null) new WikipediaCrawler(toCrawl);
+        if (toCrawl[0] != null) new WikipediaCrawler(toCrawl, crawl_depth);
         String wikiDataPath = new ParseWikipediaData(pages).dataFileLocation();
         ClusteringDB wiki = new ClusteringDB(wikiDataPath);
 

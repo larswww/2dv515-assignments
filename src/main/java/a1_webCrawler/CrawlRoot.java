@@ -16,7 +16,8 @@ public class CrawlRoot {
     Set<String> visited = new HashSet<String>();
     Map<String, LinkNode> bfsResult = new HashMap<String, LinkNode>();
 
-    public CrawlRoot(LinkNode root) {
+    public CrawlRoot(LinkNode root, int crawlDepth) {
+        maxLinks = crawlDepth;
         root.bfsNo = 0;
         visited.add(root.link);
         VisitLink(root);
@@ -32,19 +33,30 @@ public class CrawlRoot {
     }
 
     private void getText(LinkNode node) {
-        Document doc = Jsoup.parse(node.contents);
-        //todo do i want these links?
-        doc.select("div#footer").remove();
-        doc.select("div#mw-navigation").remove();
-        doc.select("div#left-navigation").remove();
-        doc.select("div#right-navigation").remove();
 
-        String text = doc.body().text();
-        preprocessText(text);
-        node.text = text;
+        try {
+            Document doc = Jsoup.parse(node.contents);
+            //todo do i want these links?
+            doc.select("div#footer").remove();
+            doc.select("div#mw-navigation").remove();
+            doc.select("div#left-navigation").remove();
+            doc.select("div#right-navigation").remove();
+
+            String text = doc.body().text();
+            preprocessText(text);
+            node.text = text;
+
+        } catch (StackOverflowError e) {
+            System.err.println(e); // todo jsoup cant handle certain links, fx flowering_plant
+            node.text = " ";
+            bfsResult.put(node.link, node);
+        }
+
+
     }
 
     private void preprocessText(String text) {
+        // splitter=re.compile('\\W*')splitter=re.compile('\\W*') to make it word only?
         String[] toReplace = {"\\<.*?>", "\\[.*?\\]", "\\d{4}-\\d{2}-\\d{2}", "\\.", ",", "\\?", ";", "\"", ":", "\\(", "\\*", "_", "!", "#", "\\)"};
         text = text.toLowerCase();
         text = text.replaceAll("\r", " ");
