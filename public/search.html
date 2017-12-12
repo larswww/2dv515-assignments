@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/styles.min.css">
 </head>
 
-<body class="e">
+<body class="search">
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean">
             <div class="container"><a class="navbar-brand" href="#">lw222ii 2dv515 a2</a>
@@ -29,17 +29,25 @@
     <div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 justify-content-center" style="padding:35px;">
-                    <h4>K-Means clustering with Pearson similarity as list of centroids</h4>
-                    <button class="btn btn-primary" type="button" id="API">Call API</button>
+                <div class="col-md-12 offset-lg-0 justify-content-center align-items-center align-content-center">
+                    <form method="get" id="searchForm">
+                        <input class="form-control" type="text" name="query">
+                        <button class="btn btn-primary" type="submit" id="API">Search </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul id="resultList">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div>
-        <div class="container" id="centroids"></div>
-    </div>
-    <div></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>

@@ -1,6 +1,8 @@
 package a2_API;
 
 import a2_clustering.*;
+import a3_search_engine.PageDB;
+import a3_search_engine.SearchResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 @RestController
 public class Controller {
     private HtmlView html = new HtmlView();
+    private PageDB search = new PageDB();
 
     @RequestMapping("/blogdata/centroids")
     public String blogdataCentroids() {
@@ -49,6 +52,11 @@ public class Controller {
                 return "Invalid Request Params";
         }
 
+    }
+
+    @RequestMapping("/search")
+    public String searchResult(@RequestParam(value="query") String query) {
+        return search.query(query);
     }
 
 }

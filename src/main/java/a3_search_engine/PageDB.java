@@ -1,9 +1,12 @@
 package a3_search_engine;
 
+import a2_clustering.FileSysDB;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
@@ -12,6 +15,26 @@ import java.util.stream.Collectors;
 public class PageDB {
     HashMap<String, Integer> wordToId = new HashMap<>();
     ArrayList<Page> pages = new ArrayList<>();
+
+    public PageDB() {
+        wordToId = FileSysDB.getWordToId();
+        pages = FileSysDB.getPages();
+
+    }
+
+    public void saveAndGenerate(String wordBagDir, String linkBagDir) {
+        ArrayList<File> wordBags = FileSysDB.allBags(wordBagDir);
+        ArrayList<File> linkBags = FileSysDB.allBags(linkBagDir);
+
+
+        for (int i = 0; i < wordBags.size(); i++) {
+            generatePage(FileSysDB.lastInPath(wordBags.get(i).toString()), wordBags.get(i), linkBags.get(i)); // takes the filename as url which is the wikipedia url minus the /wiki etc
+        }
+
+        calculatePageRank();
+        FileSysDB.savePages(pages, wordToId);
+
+    }
 
     public int getIdForWord(String word) {
         if (wordToId.containsKey(word)) {
@@ -54,7 +77,7 @@ public class PageDB {
         }
     }
 
-    public void query(String query) {
+    public String query(String query) {
         ArrayList<SearchResult> result = new ArrayList<>();
 
         double[] content  = new double[this.pages().size()];
@@ -80,11 +103,16 @@ public class PageDB {
 
         Collections.sort(result);
 
+        StringBuilder sb = new StringBuilder();
+
         System.out.println("\n Result for search '" + query + "':");
         int no = 10;
         for (int i = 0; i < no; i++) {
+            sb.append(result.get(i).toString());
             System.out.println(result.get(i).toString());
         }
+
+        return sb.toString();
 
     }
 
