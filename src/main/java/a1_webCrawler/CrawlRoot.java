@@ -44,7 +44,7 @@ public class CrawlRoot {
 
             String text = doc.body().text();
             preprocessText(text);
-            node.text = text;
+            node.text = text.toLowerCase();
 
         } catch (StackOverflowError e) {
             System.err.println(e); // todo jsoup cant handle certain links, fx flowering_plant

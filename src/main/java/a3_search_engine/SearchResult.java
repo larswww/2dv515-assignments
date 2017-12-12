@@ -19,4 +19,9 @@ public class SearchResult implements Comparable<SearchResult> {
         return -1;
 
     }
+
+    @Override
+    public String toString() {
+        return this.page.url() + " : " + score;
+    }
 }

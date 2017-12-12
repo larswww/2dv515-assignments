@@ -28,5 +28,4 @@ public class FileOpener {
     public void close() throws IOException {
         br.close();
     }
-
 }
