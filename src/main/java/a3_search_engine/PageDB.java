@@ -83,21 +83,24 @@ public class PageDB {
         double[] content  = new double[this.pages().size()];
         double[] location = new double[this.pages().size()];
         double[] distance = new double[this.pages().size()];
+        double[] pagerank = new double[this.pages().size()];
 
         for (int i = 0; i < this.pages().size(); i ++) {
             Page page = this.pages().get(i);
             content[i] = getCountFrequencyScore(page, query);
             location[i] = getCountLocationScore(page, query);
             distance[i] = getWordDistanceScore(page, query);
+            pagerank[i] = page.pageRank;
         }
 
         normalizeScores(content, false);
         normalizeScores(location, true);
         normalizeScores(distance, true);
+        normalizeScores(pagerank, false);
 
         for (int i = 0; i < this.pages().size(); i++) {
             Page p = this.pages().get(i);
-            double score = (1.0 * content[i]) + (1.0 * p.pageRank) + (0.5 * location[i]) + (0.3 * distance[i]);
+            double score = (1.0 * content[i]) + (1.0 * pagerank[i]) + (0.5 * location[i]);
             result.add(new SearchResult(p, score));
         }
 
@@ -147,6 +150,7 @@ public class PageDB {
                 if (wid == pageWords.get(i)) {
                     notFound = false;
                     score += i;
+                    break;
                 }
 
             }
