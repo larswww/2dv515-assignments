@@ -107,8 +107,6 @@ public class FileSysDB {
         }
 
         PrintLinesToFile(pageString.toString(), "pages", "/pageDB");
-
-
     }
 
     public static ArrayList<Page> getPages() {
@@ -133,7 +131,6 @@ public class FileSysDB {
             ArrayList<String> ls = new ArrayList<>();
             ls.addAll(Arrays.asList(links));
 
-
             Page p = new Page(url, il, ls);
             p.setPageRank(pr);
             pageArr.add(p);
@@ -156,7 +153,6 @@ public class FileSysDB {
 
         return wordToId;
     }
-
 
     public static String fileTostring(String path) {
         try {

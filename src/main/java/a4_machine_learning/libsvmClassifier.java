@@ -47,9 +47,14 @@ public class libsvmClassifier implements Classifier{
         param.cache_size = 20000;
         param.eps = 0.001;
 
+        svm.svm_set_print_string_function(new libsvm.svm_print_interface(){
+            @Override public void print(String s) {} // Disables svm output
+        });
+
         model = svm.svm_train(prob, param);
 
     }
+
 
     @Override
     public Result classify(Instance i) {
